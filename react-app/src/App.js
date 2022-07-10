@@ -1,33 +1,20 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import React from "react";
 
+import Counter from "./Component/Counter";
+import Container from "./Component/Container"
 function App() {
-
-  const [loading, setLoading] = useState(true);
-  const [coin, setCoin] = useState([]);
-
-  useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-    .then((response) => response.json())
-    .then((json) => {
-      setCoin(json)
-      setLoading(false)
-    })
-  }, [])
+  const countValue = {
+    a: 1,
+    initialVlaue: 5,
+  };
 
   return (
-    <div className="App">
-      <h1>The coins!</h1>
-      {loading ? <strong>loading...</strong> : null}
-      <ul>
-        {coin.map((coin) => 
-          (
-            <li>{coin.name}</li>
-          )
-        )}
-      </ul>
+    <Container>
+    <div>
+      <Counter {...countValue} />
     </div>
-  );
+    </Container>
+  );4
 }
 
 export default App;
