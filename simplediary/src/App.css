@@ -3,12 +3,13 @@
     text-align: center;
     padding: 20px;
 }
-.DiaryEditor input,
-textarea{
+
+.DiaryEditor input,textarea{
     margin-bottom: 20px;
     width: 500px;
     padding: 10px;
 }
+
 .DiaryEditor textarea{
     height: 150px;
 }
@@ -23,4 +24,38 @@ textarea{
     width: 500px;
     padding: 10px;
     cursor: pointer;
+}
+
+.DiaryEditor2 {
+    border:  1px solid gray;
+    padding: 20px;
+    margin: 20px;
+}
+
+.DiaryEditor2 h2, h4{
+    text-align: center;
+}
+
+/* DiaryItem */
+
+.DiaryItem{
+    background-color: rgb(240,240,240);
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.DiaryItem .info{
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.DiaryItem .date{
+    color: gray;
+}
+
+.DiaryItem .content{
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
