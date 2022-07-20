@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-const DiaryItem = ({ onEdit ,onRemove, id, author, content, emotion, create_data }) => {
+const DiaryItem = ({ onEdit , onRemove, id, author, content, emotion, create_data }) => {
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => setIsEdit(!isEdit);
 
@@ -20,7 +20,6 @@ const DiaryItem = ({ onEdit ,onRemove, id, author, content, emotion, create_data
   const localContentInput = useRef();
 
   const handleEdit = () => {
-
     localContentInput.current.focus();
     
     if(localContent.lenght < 5) {
