@@ -1,6 +1,14 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
-const DiaryItem = ({ onEdit , onRemove, id, author, content, emotion, create_data }) => {
+const DiaryItem = ({
+  onEdit,
+  onRemove,
+  id,
+  author,
+  content,
+  emotion,
+  create_data,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => setIsEdit(!isEdit);
 
@@ -14,23 +22,23 @@ const DiaryItem = ({ onEdit , onRemove, id, author, content, emotion, create_dat
 
   const handleQuitEdit = () => {
     setIsEdit(false);
-    setLocalcontent(content)
-  }
+    setLocalcontent(content);
+  };
 
   const localContentInput = useRef();
 
   const handleEdit = () => {
     localContentInput.current.focus();
-    
-    if(localContent.lenght < 5) {
-        return
+
+    if (localContent.lenght < 5) {
+      return;
     }
 
-    if(window.confirm(`${id}번째 일기를 수정하시겠습니까?`)){
-    onEdit(id, localContent)
-    toggleIsEdit();
+    if (window.confirm(`${id}번째 일기를 수정하시겠습니까?`)) {
+      onEdit(id, localContent);
+      toggleIsEdit();
     }
-  }
+  };
 
   return (
     <div className="DiaryItem">
@@ -47,7 +55,7 @@ const DiaryItem = ({ onEdit , onRemove, id, author, content, emotion, create_dat
         {isEdit ? (
           <>
             <textarea
-                ref={localContentInput}
+              ref={localContentInput}
               value={localContent}
               onChange={(e) => setLocalcontent(e.target.value)}
             ></textarea>
@@ -71,4 +79,4 @@ const DiaryItem = ({ onEdit , onRemove, id, author, content, emotion, create_dat
   );
 };
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
