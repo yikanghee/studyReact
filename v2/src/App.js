@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 import DiaryEditor from "./component/DiaryEditor";
 import DiaryList from "./component/DiaryList";
+import OptimizeTest from "./component/OptimizeTest";
 
 function App() {
-
-  const [data, setData] =useState([]);
+  const [data, setData] = useState([]);
   const dataId = useRef(0);
 
   const getData = async () => {
-
     const res = await fetch(
       "https://jsonplaceholder.typicode.com/comments"
     ).then((res) => res.json());
@@ -20,18 +19,18 @@ function App() {
         content: it.body,
         emotion: Math.floor(Math.random() * 5) + 1,
         created_date: new Date().getTime() + 1,
-        id: dataId.current++
-      }
-    })
+        id: dataId.current++,
+      };
+    });
 
-    setData(initData)
-  }
+    setData(initData);
+  };
 
   useEffect(() => {
     setTimeout(() => {
-      getData()
+      getData();
     }, 1500);
-  }, [])
+  }, []);
 
   const onCreate = (author, content, emotion) => {
     const created_date = new Date().getDate();
@@ -40,29 +39,44 @@ function App() {
       content,
       emotion,
       created_date,
-      id: dataId.current
-    }
+      id: dataId.current,
+    };
     dataId.current += 1;
-    setData([newItem, ...data])
-  }
+    setData([newItem, ...data]);
+  };
 
   const onEdit = (targetId, newContent) => {
     setData(
-      data.map((it) => 
-        it.id === targetId ? {...it, content: newContent} : it
+      data.map((it) =>
+        it.id === targetId ? { ...it, content: newContent } : it
       )
-    )
-  }
+    );
+  };
+
+  const getDiaryAnalysis = useMemo(() => {
+    const goodCount = data.filter((it) => it.emotion >= 3).length;
+    const badCount = data.length - goodCount;
+    const goodRatio = (goodCount / data.length) * 100;
+
+    return { goodCount, badCount, goodRatio };
+  }, [data.length]);
+
+  const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
 
   const onRemove = (targetId) => {
-    const newDiaryList = data.filter((it) => it.id !== targetId)
-    setData(newDiaryList)
-  }
-  
+    const newDiaryList = data.filter((it) => it.id !== targetId);
+    setData(newDiaryList);
+  };
+
   return (
     <div className="App">
+      <OptimizeTest />
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList diaryList={data} onEdit={onEdit} onRemove={onRemove}/>
+      <div>전체 일기 : {data.length}</div>
+      <div>기분 좋은 일기 개수 : {goodCount}</div>
+      <div>기분 나쁜 일기 개수 : {badCount}</div>
+      <div>기분 좋은 일기 비율 : {goodRatio}</div>
+      <DiaryList diaryList={data} onEdit={onEdit} onRemove={onRemove} />
     </div>
   );
 }
