@@ -34,7 +34,7 @@ const OptimizeTest = () => {
       <div>
         <h2>Counter A</h2>
         <CounterA count={count} />
-        <button onClick={() => setCount(count+1)}>button A</button>
+        <button onClick={() => setCount(count)}>button A</button>
       </div>
       <div>
         <h2>Counter B</h2>
